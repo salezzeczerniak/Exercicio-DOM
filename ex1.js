@@ -33,7 +33,8 @@ function valores(event) {
     // Passo 5
     cadastroLista(usuario)
 
-    
+    // Passo 7 
+    carregarUsuarios()
 }
 
 
@@ -98,35 +99,54 @@ function organizarUsuarios(dadosUsuario,idade, faixaEtaria) {
 function cadastroLista(dadosUsuario) {
     let listaUsuarios = []
 
-    if(localStorage.getItem("usuariosDoSite") != null){
-        listaUsuarios = JSON.parse(localStorage.getItem("usuariosDoSite"))
+    if(localStorage.getItem("usuariosSite") != null){
+        listaUsuarios = JSON.parse(localStorage.getItem("usuariosSite"))
     }
 
     listaUsuarios.push(dadosUsuario)
 
-    localStorage.setItem("usuariosDoSite", JSON.stringify(listaUsuarios))
+    localStorage.setItem("usuariosSite", JSON.stringify(listaUsuarios))
 }
 
 function carregarUsuarios() {
     let listaCarregada = []
 
-    if(listaCarregada.getItem("usuariosDoSite") != null){
-        listaCarregada = JSON.parse(localStorage.getItem("usuariosDoSite"))
+    if(localStorage.getItem("usuariosSite") != null){
+        listaCarregada = JSON.parse(localStorage.getItem("usuariosSite"))
     }
 
     if(listaCarregada.length == 0) {
-        let tabelaCorreta = document.getElementById("corpo-tabela").innerHTML = `<tr>
-        <td coldspan="6">Nenhum usuario cadastrado </td></tr>`
+        document.getElementById("corpo-tabela").innerHTML = `<tr>
+        <td coldspan="6"> Nenhum usuario cadastrado </td></tr>`
     }else{
-        montarTable(listaCarregada)
+        renderizarUsuarios(listaCarregada)
     }
-
-    console.log(listaCarregada)
-
-    window.addEventListener("DOMContentLoaded", () => carregarUsuarios)
 
 }
 
-function renderizarUsuarios () {
-    
+window.addEventListener("DOMContentLoaded", () => carregarUsuarios())
+
+
+function renderizarUsuarios (listaUsuarios) {
+    let table = document.getElementById("corpo-tabela")
+
+    let tempo = ""
+
+    listaUsuarios.forEach(usuario => {
+        tempo += `<tr>
+        <td data-cell="nome">${usuario.nome }</td>
+        <td data-cell="data de nascimento">${usuario.dia, usuario.mes, usuario.ano}</td>
+        <td data-cell="idade">${usuario.idade}</td>
+        <td data-cell="faixa etária">${usuario.faixaEtaria}</td>
+    </tr> `
+    })
+
+    table.innerHTML = tempo;
+}
+
+function deletarUsuarios() {
+    // Remove o item do localStorage
+    localStorage.removeItem("usuariosSite")
+    // Recarrega a página
+    window.location.reload()
 }
