@@ -13,8 +13,8 @@
 // OK 4 - Organizar o objeto pessoa para salvar na lista
 // OK 5 - Cadastrar a pessoa na lista
 // OK 6 - Função para carregar as pessoas, carrega a lista do localStorage, chamar ao carregar a página
-// 7 - Renderizar o conteúdo da tabela com as pessoas cadastradas
-// 8 -  Botão para limpar os registros;
+// OK 7 - Renderizar o conteúdo da tabela com as pessoas cadastradas
+// OK 8 -  Botão para limpar os registros;
 
 function valores(event) {
     event.preventDefault()
@@ -117,7 +117,8 @@ function carregarUsuarios() {
 
     if(listaCarregada.length == 0) {
         document.getElementById("corpo-tabela").innerHTML = `<tr>
-        <td coldspan="6"> Nenhum usuario cadastrado </td></tr>`
+        <td coldspan="4"> Nenhum usuario cadastrado 😒</td></tr>`
+        // Para colocar emojis em strings aperte o botão = Windows + .
     }else{
         renderizarUsuarios(listaCarregada)
     }
